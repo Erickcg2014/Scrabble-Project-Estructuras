@@ -18,8 +18,11 @@ public:
     void posiblesPalabras(const std::string& letras);
 
 private:
-    // Declaraciones privadas de la clase Scrabble
-    // Puedes agregar variables miembro aquí si es necesario
+	bool diccionarioInicializado = false;
+	bool diccionarioInversoInicializado = false;
+	bool arbolInicializado = false;
+	bool arbolInversoInicializado = false;
+	
 };
 
 #endif // SCRABBLE_H
