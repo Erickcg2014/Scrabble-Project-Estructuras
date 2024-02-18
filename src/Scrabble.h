@@ -1,75 +1,67 @@
-<<<<<<< HEAD
-
-#ifndef SCRABBLE_H
-#define SCRABBLE_H
-
-#include <string>
-#include <vector>
+#include <iostream>
+#include "Scrabble.h"
 
 using namespace std;
 
-class Scrabble {
-public:
-    // Comandos para la configuraci贸n del juego
-    void inicializarDiccionario(const string& archivoDiccionario);
-    void iniciarDiccionarioInverso(const string& archivoDiccionario);
-    void obtenerPuntaje(const string& palabra);
-    void salir();
+int main() {
+    Scrabble scrabble;
+    string comando;
+    
+    cout << "Bienvenido al juego Scrabble!" << endl;
+    cout << "Ingrese un comando ('ayuda' para ver la lista de comandos):" << endl;
+    
+    while (true) {
+        cout << "$ ";
+        cin >> comando;
 
-    // Comandos para la b煤squeda de palabras
-    void iniciarArbol(const string& archivoDiccionario);
-    void iniciarArbolInverso(const string& archivoDiccionario);
-    void palabrasPorPrefijo(const string& prefijo);
-    void palabrasPorSufijo(const string& sufijo);
+        if (comando == "ayuda") {
+            // Mostrar lista de comandos disponibles
+            cout << "Lista de comandos:" << endl;
+            cout << "  - inicializar <archivoDiccionario>: Inicializa el diccionario con el archivo especificado." << endl;
+            cout << "  - iniciar_inverso <archivoDiccionario>: Inicializa el diccionario inverso con el archivo especificado." << endl;
+            cout << "  - puntaje <palabra>: Obtiene el puntaje de la palabra dada." << endl;
+            cout << "  - salir: Termina la ejecuci髇 del programa." << endl;
+            cout << "  - iniciar_arbol <archivoDiccionario>: Inicializa el 醨bol de palabras con el archivo especificado." << endl;
+            cout << "  - iniciar_arbol_inverso <archivoDiccionario>: Inicializa el 醨bol de palabras inverso con el archivo especificado." << endl;
+            cout << "  - palabras_por_prefijo <prefijo>: Muestra las palabras que comienzan con el prefijo dado." << endl;
+            cout << "  - palabras_por_sufijo <sufijo>: Muestra las palabras que terminan con el sufijo dado." << endl;
+        } else if (comando == "inicializar") {
+            string archivoDiccionario;
+            cin >> archivoDiccionario;
 
-    // Comandos para la generaci贸n de combinaciones de letras
-    void grafoDePalabras();
-    void posiblesPalabras(const string& letras);
+            scrabble.inicializarDiccionario(archivoDiccionario);
+        } else if (comando == "iniciar_inverso") {
+            string archivoDiccionario;
+            cin >> archivoDiccionario;
+            scrabble.iniciarDiccionarioInverso(archivoDiccionario);
+        } else if (comando == "puntaje") {
+            string palabra;
+            cin >> palabra;
+            scrabble.obtenerPuntaje(palabra);
+        } else if (comando == "salir") {
+            cout << "ave a nice day!" << endl;
+            break;
+        } else if (comando == "iniciar_arbol") {
+            string archivoDiccionario;
+            cin >> archivoDiccionario;
+            scrabble.iniciarArbol(archivoDiccionario);
+        } else if (comando == "iniciar_arbol_inverso") {
+            string archivoDiccionario;
+            cin >> archivoDiccionario;
+            scrabble.iniciarArbolInverso(archivoDiccionario);
+        } else if (comando == "palabras_por_prefijo") {
+            string prefijo;
+            cin >> prefijo;
+            scrabble.palabrasPorPrefijo(prefijo);
+        } else if (comando == "palabras_por_sufijo") {
+            string sufijo;
+            cin >> sufijo;
+            scrabble.palabrasPorSufijo(sufijo);
+        } else {
+            cout << "Comando no reconocido. Ingrese 'ayuda' para ver la lista de comandos disponibles." << endl;
+        }
+    }
 
-private:
-    // Variables para verificaciones, se utiliza solo como prueba
-    bool diccionarioInicializado = false;
-    bool diccionarioInversoInicializado = false;
-    bool arbolInicializado = false; 
-    bool arbolInversoInicializado = false; 
-};
+    return 0;  
+}
 
-#endif // SCRABBLE_H
-=======
-
-#ifndef SCRABBLE_H
-#define SCRABBLE_H
-
-#include <string>
-#include <vector>
-
-using namespace std;
-
-class Scrabble {
-public:
-    // Comandos para la configuraci贸n del juego
-    void inicializarDiccionario(const string& archivoDiccionario);
-    void iniciarDiccionarioInverso(const string& archivoDiccionario);
-    void obtenerPuntaje(const string& palabra);
-    void salir();
-
-    // Comandos para la b煤squeda de palabras
-    void iniciarArbol(const string& archivoDiccionario);
-    void iniciarArbolInverso(const string& archivoDiccionario);
-    void palabrasPorPrefijo(const string& prefijo);
-    void palabrasPorSufijo(const string& sufijo);
-
-    // Comandos para la generaci贸n de combinaciones de letras
-    void grafoDePalabras();
-    void posiblesPalabras(const string& letras);
-
-private:
-    // Variables para verificaciones, se utiliza solo como prueba
-    bool diccionarioInicializado = false;
-    bool diccionarioInversoInicializado = false;
-    bool arbolInicializado = false; 
-    bool arbolInversoInicializado = false; 
-};
-
-#endif // SCRABBLE_H
->>>>>>> 3ff178c64278b8a684b0510e46dc48a363786a34
