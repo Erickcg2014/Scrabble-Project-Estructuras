@@ -2,112 +2,75 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <cctype>
+#include <algorithm>
 
 using namespace std;
 
-void Scrabble::inicializarDiccionario(const std::string& archivoDiccionario) {
-    // Implementacion para inicializar el diccionario desde el archivo
-    ifstream archivo(archivoDiccionario);
-    if (!archivo.is_open()){
-        cout << " (Archivo no existe)"<<endl<<"El archivo "<<archivoDiccionario<<" no existe o no puede ser leido";
-        return;
-    }
+Scrabble::Scrabble(){}
 
-    if(diccionarioInicializado){
-        cout << "(Diccionario ya inicializado)"<<endl<<"El diccionario ya ha sido inicializado."<<endl;
-    }
 
-    //Inicializar el diccionario 
-    cout<<"(Resultado exitoso) El diccionario se ha inicializado correctamente."<<endl;
-
+void Scrabble::inicializarDiccionario(const string& archivoDiccionario) {
+    diccionario.inicializarDiccionario(archivoDiccionario);
 }
 
-void Scrabble::iniciarDiccionarioInverso(const std::string& archivoDiccionario) {
-    // Implementacion para inicializar el diccionario inverso desde el archivo
-    ifstream archivo(archivoDiccionario);
-    if(!archivo.is_open()){
-        cout <<"(Archivo no existe)"<<endl<<"El archivo "<<archivoDiccionario<< "No existe o no puede ser leido."<<endl;
+void Scrabble::iniciarDiccionarioInverso(const string& archivoDiccionario) {
+    diccionario.iniciarDiccionarioInverso(archivoDiccionario);
+}
+
+void Scrabble::obtenerPuntaje(const string& palabraOriginal) {
+    if (!Palabra(palabraOriginal).esPalabraValida(palabraOriginal)) {
+        cout << "(Letras invalidas) La palabra contiene simbolos invalidos." << endl;
         return;
     }
     
-    if (diccionarioInversoInicializado){
-        cout<<"(Diccionario ya inicializado)"<<endl<< "El diccionario inverso ya ha sido inicializado." <<endl;
-    }
-    
-    cout<< "(Resultado exitoso)"<<endl<<"El diccionario inverso se ha inicializado correctamente. "<<endl;
-    diccionarioInversoInicializado = true;
-}
-
-void Scrabble::obtenerPuntaje(const std::string& palabra) {
-    // Implementacion para obtener el puntaje de una palabra
-    if (!diccionarioInicializado && !diccionarioInversoInicializado) {
-        cout << "(Diccionario no inicializado)"<<endl<<"El diccionario no ha sido inicializado." << endl;
+    if (!diccionario.contienePalabra(palabraOriginal)) {
+        cout << "(Palabra no existe) La palabra no existe en el diccionario." << endl;
         return;
     }
 
-    // Verificar si la palabra contiene caracteres invalidos
-    for (char c : palabra) {
-        if (!isalpha(c)) {
-            cout << "(Letras inválidas)"<<endl<<"La palabra contiene simbolos inválidos." << endl;
-            return;
-        }
-    }
-
-    int puntaje = 0; // Puntaje calculado para la palabra
-    // Por ahora, simplemente sumaremos los puntos de las letras
-    for (char c : palabra) {
-        switch (tolower(c)) {
-            case 'a':
-            case 'e':
-            case 'i':
-            case 'o':
-            case 'n':
-            case 'r':
-            case 't':
-            case 'l':
-            case 's':
-            case 'u':
-                puntaje += 1;
-                break;
-            case 'd':
-            case 'g':
-                puntaje += 2;
-                break;
-            case 'b':
-            case 'c':
-            case 'm':
-            case 'p':
-                puntaje += 3;
-                break;
-            case 'f':
-            case 'h':
-            case 'v':
-            case 'w':
-            case 'y':
-                puntaje += 4;
-                break;
-            case 'k':
-                puntaje += 5;
-                break;
-            case 'j':
-            case 'x':
-                puntaje += 8;
-                break;
-            case 'q':
-            case 'z':
-                puntaje += 10;
-                break;
-            default:
-                break;
-        }
-    }
-
-    cout << "(Resultado exitoso) La palabra tiene un puntaje de " << puntaje << "." << endl;
+    diccionario.buscarPuntaje(palabraOriginal);
 }
 
+
+//COMANDO: SALIR 
 void Scrabble::salir() {
     exit(0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+//COMPONENTE 2
 
 void Scrabble::iniciarArbol(const std::string& archivoDiccionario) {
     // inicializar el arbol de palabras desde el archivo
@@ -182,5 +145,5 @@ void Scrabble::posiblesPalabras(const std::string& letras) {
     }
 
     cout << "Comando 'posiblesPalabras' ejecutado con par�metro: " << letras << endl;
-}
+}*/
 
