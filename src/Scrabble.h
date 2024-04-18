@@ -21,7 +21,7 @@ public:
     void obtenerPuntaje(const std::string& palabra);
     void salir();
 
-	// Nuevas funciones para inicializar los árboles
+	// Funciones para inicializar los árboles
     int inicializarArbol(const std::string& archivoDiccionario);
     int inicializarArbolInverso(const std::string& archivoDiccionario);
 

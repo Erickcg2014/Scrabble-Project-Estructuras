@@ -51,13 +51,13 @@ void NodoScrabble<T>::obtenerPalabrasPrefijo(const std::string& prefijo, std::ve
 template<typename T>
 void NodoScrabble<T>::obtenerPalabrasSufijo(const std::string& palabraAcumulada, std::vector<std::string>& palabras) const {
     if (esFinalDePalabra()) {
-        palabras.push_back(palabraAcumulada);  // Asegúrate de que esta es la palabra completa reconstruida
+        palabras.push_back(palabraAcumulada);  
     }
     for (auto& hijo : hijos) {
         hijo.second->obtenerPalabrasSufijo(hijo.first + palabraAcumulada, palabras);
     }
 }
 
-// Explicit instantiation
+
 template class NodoScrabble<char>;
 

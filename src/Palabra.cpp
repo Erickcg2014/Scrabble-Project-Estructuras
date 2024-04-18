@@ -22,7 +22,7 @@ int Palabra::calcularPuntaje(const string& palabra) {
     int puntaje = 0;
     for (char c : palabra) {
         c = tolower(c);
-        puntaje += Letra::valoresLetras[c]; // Utiliza la definición de valoresLetras de Letra
+        puntaje += Letra::valoresLetras[c]; 
     }
     return puntaje;
 }

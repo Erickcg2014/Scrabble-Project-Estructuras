@@ -98,6 +98,7 @@ void ArbolScrabble::buscarPalabrasPorPrefijoRecursivo(NodoScrabble<char>* nodo, 
     }
 
     if (prefijo.empty()) {
+        // Cuando se consume el prefijo, recoge las palabras
         nodo->obtenerPalabrasPrefijo(palabraAcumulada, palabras);
         return; 
     }
