@@ -17,6 +17,7 @@ private:
     bool diccionarioInversoInicializado = false;
 
 public:
+    enum class Resultado;
     Diccionario();
     bool inicializarDiccionario(const std::string& archivoDiccionario);
     bool iniciarDiccionarioInverso(const std::string& archivoDiccionario);
