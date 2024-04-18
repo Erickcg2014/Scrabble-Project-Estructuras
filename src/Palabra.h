@@ -8,10 +8,11 @@
 #include <algorithm>
 #include <map>
 #include <cctype> 
+#include "Letra.h"
 
 class Palabra {
 private:
-    static std::map<char, int> valoresLetras;
+    std::list<Letra> Letras;
 	std::string contenido; 
 public:
 	Palabra(const std::string& palabra) : contenido (palabra){}
