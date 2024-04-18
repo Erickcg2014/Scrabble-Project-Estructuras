@@ -125,16 +125,4 @@ void ArbolScrabble::buscarPalabrasPorSufijoRecursivo(NodoScrabble<char>* nodo, c
     }
 }
 
-void ArbolScrabble::mostrarPalabrasConDetalles(const std::vector<std::string>& palabras) {
-    if (palabras.empty()) {
-        std::cout << "No se encontraron palabras." << std::endl;
-    } else {
-        std::cout << "Palabras encontradas:" << std::endl;
-        for (const auto& palabra : palabras) {
-            int puntuacion = Palabra::calcularPuntaje(palabra); 
-            std::cout << palabra << " (Longitud: " << palabra.length() << ", Puntuacion: " << puntuacion << ")" << std::endl;
-        }
-    }
-}
-
 
