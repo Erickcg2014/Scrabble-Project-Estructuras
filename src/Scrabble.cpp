@@ -18,14 +18,6 @@ void Scrabble::iniciarDiccionarioInverso(const string& archivoDiccionario) {
     diccionario.iniciarDiccionarioInverso(archivoDiccionario);
 }
 
-int Scrabble::inicializarArbol(const std::string& archivoDiccionario) {
-    return arbolDiccionario.inicializarArbol(archivoDiccionario); 
-}
-
-int Scrabble::inicializarArbolInverso(const std::string& archivoDiccionario) {
-    return arbolDiccionarioInverso.inicializarArbolInverso(archivoDiccionario); 
-}
-
 void Scrabble::obtenerPuntaje(const string& palabraOriginal) {
     if (!Palabra(palabraOriginal).esPalabraValida(palabraOriginal)) {
         cout << "(Letras invalidas) La palabra contiene simbolos invalidos." << endl;
@@ -40,6 +32,15 @@ void Scrabble::obtenerPuntaje(const string& palabraOriginal) {
     diccionario.buscarPuntaje(palabraOriginal);
 }
 
+//Funciones componente 2
+int Scrabble::inicializarArbol(const std::string& archivoDiccionario) {
+    return arbolDiccionario.inicializarArbol(archivoDiccionario); 
+}
+
+int Scrabble::inicializarArbolInverso(const std::string& archivoDiccionario) {
+    return arbolDiccionarioInverso.inicializarArbolInverso(archivoDiccionario); 
+}
+
 void Scrabble::buscarPalabrasPorPrefijo(const std::string& prefijo) {
     Comandos comandos;
     std::vector<std::string> palabras = arbolDiccionario.buscarPalabrasPorPrefijo(prefijo);
@@ -52,7 +53,6 @@ void Scrabble::buscarPalabrasPorSufijo(const std::string& sufijo) {
     std::vector<std::string> palabras = arbolDiccionarioInverso.buscarPalabrasPorSufijo(sufijo);
     comandos.mostrarResultadosSufijo(sufijo, palabras);
 }
-
 
 
 //COMANDO: SALIR 

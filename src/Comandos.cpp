@@ -112,9 +112,9 @@ void Comandos::manejarResultado(int codigo, bool tipo) {
 
 void Comandos::mostrarResultadosPrefijo(const std::string& prefijo, const std::vector<std::string>& palabras) {
         if (palabras.empty()) {
-            std::cout << "No se encontraron palabras que comiencen con el prefijo \"" << prefijo << "\"." << std::endl;
+            std::cout << "(Prefijo invalido) Prefijo \"" << prefijo << "\"." <<"No pudo encontrarse en el diccionario."<< std::endl;
         } else {
-            std::cout << "Palabras que inician con el prefijo \"" << prefijo << "\":" << std::endl;
+            std::cout << "(Resultado exitoso) Las palabras que inician con el prefijo \"" << prefijo << "\":"<<std::endl;
             for (const auto& palabra : palabras) {
                 int puntuacion = Palabra::calcularPuntaje(palabra);
                 std::cout << palabra << " (Longitud: " << palabra.length() << ", Puntuacion: " << puntuacion << ")" << std::endl;
@@ -125,9 +125,9 @@ void Comandos::mostrarResultadosPrefijo(const std::string& prefijo, const std::v
 
 void Comandos::mostrarResultadosSufijo(const std::string& sufijo, const std::vector<std::string>& palabras) {
         if (palabras.empty()) {
-            std::cout << "No se encontraron palabras que terminen con el sufijo \"" << sufijo << "\"." << std::endl;
+            std::cout << "(Sufijo invalido) Sufijo \"" << sufijo << "\"." << "No pudo encontrarse en el diccionario."<<std::endl;
         } else {
-            std::cout << "Palabras que terminan con el sufijo \"" << sufijo << "\":" << std::endl;
+            std::cout << "(Resultado exitoso) Palabras que terminan con el sufijo \"" << sufijo << "\":" << std::endl;
             for (auto palabra : palabras) {
                 int puntuacion = Palabra::calcularPuntaje(palabra);
                 //std::reverse(palabra.begin(), palabra.end());
