@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <vector>
 #include <cctype> // Para std::isalpha y std::tolower
 
 class Diccionario {
@@ -24,6 +25,8 @@ public:
     bool contienePalabra(const std::string& palabra) const;
     void buscarPuntaje(const std::string& palabra);
     std::vector<std::string> obtenerPalabras() const;
+    bool isInicializado() const { return diccionarioInicializado; }
+    bool isInversoInicializado() const { return diccionarioInversoInicializado; }
 };
 
 #endif // DICCIONARIO_H

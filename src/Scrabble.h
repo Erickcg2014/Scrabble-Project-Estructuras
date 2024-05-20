@@ -18,7 +18,7 @@ private:
 public:
     Scrabble();
     
-    void inicializarDiccionario(const std::string& archivoDiccionario);
+    bool inicializarDiccionario(const std::string& archivoDiccionario);
     void iniciarDiccionarioInverso(const std::string& archivoDiccionario);
     void obtenerPuntaje(const std::string& palabra);
     void salir();
@@ -30,10 +30,14 @@ public:
     void buscarPalabrasPorPrefijo(const std::string& prefijo);
     void buscarPalabrasPorSufijo(const std::string& sufijo);
 
+    bool construirGrafoDePalabras();
     void posiblesPalabrasLetras(const std::string& letras);
 
     Diccionario& getDiccionario() { return diccionario; }
     GrafoScrabble& getGrafo() { return grafoPalabras; }
+    bool isDiccionarioInicializado() const { return diccionario.isInicializado(); }
+    bool isDiccionarioInversoInicializado() const { return diccionario.isInversoInicializado(); }
+    bool isGrafoConstruido() const { return grafoPalabras.isGrafoConstruido(); }
 };
 
 #endif // SCRABBLE_H

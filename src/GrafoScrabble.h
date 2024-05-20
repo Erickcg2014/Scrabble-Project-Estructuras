@@ -12,6 +12,7 @@ private:
     std::unordered_map<std::string, NodoGrafo*> nodos;
     bool esVecino(const std::string& palabra1, const std::string& palabra2);
     void limpiarGrafo();
+    bool grafoConstruido;
 
 public:
     GrafoScrabble();
@@ -19,6 +20,7 @@ public:
     void construirGrafo(const std::vector<std::string>& palabras);
     std::vector<std::string> posiblesPalabras(const std::string& letras);
     std::vector<std::string> obtenerPalabrasValidas(NodoGrafo* nodo, std::string palabraAcumulada, std::unordered_map<char, int> conteoLetras, bool comodin);
+    bool isGrafoConstruido() const { return grafoConstruido; }
 };
 
 #endif // GRAFOSCRABBLE_H

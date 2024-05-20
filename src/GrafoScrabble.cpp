@@ -3,7 +3,7 @@
 #include <queue>
 #include <unordered_set>
 
-GrafoScrabble::GrafoScrabble() {}
+GrafoScrabble::GrafoScrabble() : grafoConstruido(false) {}
 
 GrafoScrabble::~GrafoScrabble() {
     limpiarGrafo();
@@ -14,6 +14,7 @@ void GrafoScrabble::limpiarGrafo() {
         delete par.second;
     }
     nodos.clear();
+    grafoConstruido = false;
 }
 
 bool GrafoScrabble::esVecino(const std::string& palabra1, const std::string& palabra2) {
@@ -29,6 +30,8 @@ bool GrafoScrabble::esVecino(const std::string& palabra1, const std::string& pal
 }
 
 void GrafoScrabble::construirGrafo(const std::vector<std::string>& palabras) {
+    if (grafoConstruido) return;
+
     limpiarGrafo();
 
     // Crear nodos para cada palabra
@@ -47,6 +50,8 @@ void GrafoScrabble::construirGrafo(const std::vector<std::string>& palabras) {
             }
         }
     }
+
+    grafoConstruido = true;
 }
 
 std::vector<std::string> GrafoScrabble::posiblesPalabras(const std::string& letras) {

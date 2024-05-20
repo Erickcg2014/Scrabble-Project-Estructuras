@@ -1,4 +1,3 @@
-#include "Scrabble.h"
 #include "Diccionario.h"
 #include "Palabra.h"
 #include <iostream>
@@ -9,10 +8,8 @@
 
 using namespace std;
 
-Diccionario::Diccionario(){};
+Diccionario::Diccionario() {}
 
-
-//COMANDO INICIALIZAR DICCIONARIO
 bool Diccionario::inicializarDiccionario(const string& archivoDiccionario) {
     if (diccionarioInicializado) {
         cout << "(Diccionario ya inicializado) El diccionario ya ha sido inicializado." << endl;
@@ -27,7 +24,8 @@ bool Diccionario::inicializarDiccionario(const string& archivoDiccionario) {
 
     string palabra;
     while (archivo >> palabra) {
-        if (Palabra(palabra).esPalabraValida(palabra)) {
+        std::transform(palabra.begin(), palabra.end(), palabra.begin(), ::tolower); // Convertir a minúsculas
+        if (Palabra::esPalabraValida(palabra)) {
             diccionario.push_back(Palabra(palabra));
         }
     }
@@ -37,9 +35,6 @@ bool Diccionario::inicializarDiccionario(const string& archivoDiccionario) {
     cout << "(Resultado exitoso) El diccionario se ha inicializado correctamente." << endl;
     return true;
 }
-
-
-//INICIAR_INVERSO DICCIONARIO
 
 bool Diccionario::iniciarDiccionarioInverso(const string& archivoDiccionario) {
     if (diccionarioInversoInicializado) {
@@ -55,8 +50,9 @@ bool Diccionario::iniciarDiccionarioInverso(const string& archivoDiccionario) {
 
     string palabra;
     while (archivo >> palabra) {
-        if (Palabra(palabra).esPalabraValida(palabra)) {
-            reverse(palabra.begin(), palabra.end()); 
+        std::transform(palabra.begin(), palabra.end(), palabra.begin(), ::tolower); // Convertir a minúsculas
+        if (Palabra::esPalabraValida(palabra)) {
+            reverse(palabra.begin(), palabra.end());
             diccionarioInverso.push_back(Palabra(palabra));
         }
     }
@@ -66,8 +62,6 @@ bool Diccionario::iniciarDiccionarioInverso(const string& archivoDiccionario) {
     cout << "(Resultado exitoso) El diccionario inverso se ha inicializado correctamente." << endl;
     return true;
 }
-
-//DICCIONARIO COMPROBAR PALABRA
 
 bool Diccionario::contienePalabra(const string& palabraBusqueda) const {
     for (const auto& palabra : diccionario) {
@@ -81,23 +75,20 @@ bool Diccionario::contienePalabra(const string& palabraBusqueda) const {
     return false;
 }
 
-
 void Diccionario::buscarPuntaje(const std::string& palabraOri) {
     string palabraInvertida = palabraOri;
+    reverse(palabraInvertida.begin(), palabraInvertida.end());
 
-
-    // Buscar en el diccionario normal
     for (const auto& palabra : diccionario) {
         if (palabra.getContenido() == palabraOri) {
-            cout << "(Resultado exitoso) La palabra tiene un puntaje de " << palabra.calcularPuntaje(palabraOri) << "." << endl;
+            cout << "(Resultado exitoso) La palabra tiene un puntaje de " << Palabra::calcularPuntaje(palabraOri) << "." << endl;
             return;
         }
     }
 
-    // Buscar en el diccionario inverso
     for (const auto& palabra : diccionarioInverso) {
         if (palabra.getContenido() == palabraInvertida) {
-            cout << "(Resultado exitoso) La palabra inversa tiene un puntaje de " << palabra.calcularPuntaje(palabraInvertida) << "." << endl;
+            cout << "(Resultado exitoso) La palabra inversa tiene un puntaje de " << Palabra::calcularPuntaje(palabraInvertida) << "." << endl;
             return;
         }
     }

@@ -10,9 +10,8 @@ using namespace std;
 
 Scrabble::Scrabble(){}
 
-void Scrabble::inicializarDiccionario(const string& archivoDiccionario) {
-    diccionario.inicializarDiccionario(archivoDiccionario);
-    grafoPalabras.construirGrafo(diccionario.obtenerPalabras());
+bool Scrabble::inicializarDiccionario(const string& archivoDiccionario) {
+    return diccionario.inicializarDiccionario(archivoDiccionario);
 }
 
 void Scrabble::iniciarDiccionarioInverso(const string& archivoDiccionario) {
@@ -53,6 +52,19 @@ void Scrabble::buscarPalabrasPorSufijo(const std::string& sufijo) {
     Comandos comandos;
     std::vector<std::string> palabras = arbolDiccionarioInverso.buscarPalabrasPorSufijo(sufijo);
     comandos.mostrarResultadosSufijo(sufijo, palabras);
+}
+
+bool Scrabble::construirGrafoDePalabras() {
+    if (!isDiccionarioInicializado()) {
+        std::cout << "Error: El diccionario no ha sido inicializado." << std::endl;
+        return false;
+    }
+    if (isGrafoConstruido()) {
+        std::cout << "Error: El grafo ya ha sido construido." << std::endl;
+        return false;
+    }
+    grafoPalabras.construirGrafo(diccionario.obtenerPalabras());
+    return true;
 }
 
 void Scrabble::posiblesPalabrasLetras(const std::string& letras) {

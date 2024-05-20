@@ -50,7 +50,11 @@ void Comandos::ejecutarComandos(){
 
         } else if (comando == "inicializar") {
             cin >> archivoDiccionario;
-            scrabble.inicializarDiccionario(archivoDiccionario);
+            if (scrabble.inicializarDiccionario(archivoDiccionario)) {
+                cout << "(Resultado exitoso) El Diccionario se ha inicializado correctamente." << endl;
+            } else {
+                cout << "Error al inicializar el diccionario." << endl;
+            }
         } else if (comando == "iniciar_inverso") {
             cin >> archivoDiccionario;
             scrabble.iniciarDiccionarioInverso(archivoDiccionario);
@@ -82,10 +86,16 @@ void Comandos::ejecutarComandos(){
             std::transform(sufijo.begin(), sufijo.end(), sufijo.begin(), ::tolower);
             scrabble.buscarPalabrasPorSufijo(sufijo);
         } else if (comando == "grafo_de_palabras") {
-            std::vector<std::string> palabras = scrabble.getDiccionario().obtenerPalabras();
-            scrabble.getGrafo().construirGrafo(palabras);
-            std::cout << "(Resultado exitoso) Grafo construido correctamente." << std::endl;
-        } else if (comando == "posibles_palabras_letras") {
+            if (!scrabble.isDiccionarioInicializado()) {
+                cout << "Error: El diccionario no ha sido inicializado." << endl;
+            } else if (scrabble.getGrafo().isGrafoConstruido()) {
+                cout << "Error: El grafo ya ha sido construido." << endl;
+            } else {
+                vector<string> palabras = scrabble.getDiccionario().obtenerPalabras();
+                scrabble.getGrafo().construirGrafo(palabras);
+                cout << "(Resultado exitoso) Grafo construido correctamente." << endl;
+            }
+        } else if (comando == "posibles_palabras") {
             std::cin >> letras;
              std::transform(letras.begin(), letras.end(), letras.begin(), ::tolower);
             scrabble.posiblesPalabrasLetras(letras);
