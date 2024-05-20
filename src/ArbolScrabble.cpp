@@ -22,24 +22,28 @@ int ArbolScrabble::inicializarArbol(const std::string& archivoDiccionario) {
 
     std::string palabra;
     while (archivo >> palabra) {
+        std::transform(palabra.begin(), palabra.end(), palabra.begin(), ::tolower);
+
         if (Palabra::esPalabraValida(palabra)) {
             if (!insertarPalabra(&raiz, palabra)) {
-                std::cerr << "Error al insertar la palabra '" << palabra << "' en el arbol." << std::endl;
+                std::cerr << "Error al insertar la palabra '" << palabra << "' en el árbol." << std::endl;
             }
         } else {
-            std::cerr << "La palabra '" << palabra << "' no es valida y no se inserta en el arbol." << std::endl<<std::endl;
+            std::cerr << "La palabra '" << palabra << "' no es válida y no se inserta en el árbol." << std::endl << std::endl;
         }
     }
 
     archivo.close();
-    arbolDiccionarioInicializado= true;
+    arbolDiccionarioInicializado = true;
     return 0;
 }
+
 
 int ArbolScrabble::inicializarArbolInverso(const std::string& archivoDiccionario) {
     if (arbolDiccionarioInversoInicializado) {
         return -1;
     }
+
     std::ifstream archivo(archivoDiccionario);
     if (!archivo.is_open()) {
         return 1;
@@ -47,20 +51,23 @@ int ArbolScrabble::inicializarArbolInverso(const std::string& archivoDiccionario
 
     std::string palabra;
     while (archivo >> palabra) {
+        std::transform(palabra.begin(), palabra.end(), palabra.begin(), ::tolower);
+        
         if (Palabra::esPalabraValida(palabra)) {
             std::reverse(palabra.begin(), palabra.end());
             if (!insertarPalabra(&raizInversa, palabra)) {
-                std::cerr << "Error al insertar la palabra '" << palabra << "' en el arbol inverso." << std::endl;
+                std::cerr << "Error al insertar la palabra '" << palabra << "' en el árbol inverso." << std::endl;
             }
         } else {
-            std::cerr << "La palabra '" << palabra << "' no es valida y no se inserta en el arbol inverso." << std::endl<<std::endl;
+            std::cerr << "La palabra '" << palabra << "' no es válida y no se inserta en el árbol inverso." << std::endl << std::endl;
         }
     }
 
     archivo.close();
-    arbolDiccionarioInversoInicializado= true;
+    arbolDiccionarioInversoInicializado = true;
     return 0;
 }
+
 
 bool ArbolScrabble::insertarPalabra(NodoScrabble<char>** nodo, const std::string& palabra) {
     if (*nodo == nullptr) {
@@ -98,6 +105,7 @@ void ArbolScrabble::buscarPalabrasPorPrefijoRecursivo(NodoScrabble<char>* nodo, 
     }
 
     if (prefijo.empty()) {
+        // Cuando se consume el prefijo, recoge las palabras
         nodo->obtenerPalabrasPrefijo(palabraAcumulada, palabras);
         return; 
     }
@@ -120,18 +128,6 @@ void ArbolScrabble::buscarPalabrasPorSufijoRecursivo(NodoScrabble<char>* nodo, c
         NodoScrabble<char>* siguiente = nodo->buscarHijo(sufijo.back());
         if (siguiente != nullptr) {
             buscarPalabrasPorSufijoRecursivo(siguiente, sufijo.substr(0, sufijo.length() - 1), palabras, sufijo.back() + palabraAcumulada);
-        }
-    }
-}
-
-void ArbolScrabble::mostrarPalabrasConDetalles(const std::vector<std::string>& palabras) {
-    if (palabras.empty()) {
-        std::cout << "No se encontraron palabras." << std::endl;
-    } else {
-        std::cout << "Palabras encontradas:" << std::endl;
-        for (const auto& palabra : palabras) {
-            int puntuacion = Palabra::calcularPuntaje(palabra); 
-            std::cout << palabra << " (Longitud: " << palabra.length() << ", Puntuacion: " << puntuacion << ")" << std::endl;
         }
     }
 }

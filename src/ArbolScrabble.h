@@ -26,7 +26,6 @@ public:
 
     void buscarPalabrasPorPrefijoRecursivo(NodoScrabble<char>* nodo, const std::string& prefijo, std::vector<std::string>& palabras, const std::string& palabraAcumulada);
     void buscarPalabrasPorSufijoRecursivo(NodoScrabble<char>* nodo, const std::string& sufijo, std::vector<std::string>& palabras, const std::string& palabraAcumulada);
-    void mostrarPalabrasConDetalles(const std::vector<std::string>& palabras);
 };
 
 #endif // ARBOL_SCRABBLE_H
