@@ -4,6 +4,7 @@
 #include "ArbolScrabble.h"
 #include "Comandos.h"
 #include "Diccionario.h"
+#include "GrafoScrabble.h"
 #include <string>
 #include <iostream>
 
@@ -12,6 +13,7 @@ private:
     Diccionario diccionario;
     ArbolScrabble arbolDiccionario;
     ArbolScrabble arbolDiccionarioInverso;
+    GrafoScrabble grafoPalabras;
 
 public:
     Scrabble();
@@ -27,9 +29,13 @@ public:
 
     void buscarPalabrasPorPrefijo(const std::string& prefijo);
     void buscarPalabrasPorSufijo(const std::string& sufijo);
+
+    void posiblesPalabrasLetras(const std::string& letras);
+
+    Diccionario& getDiccionario() { return diccionario; }
+    GrafoScrabble& getGrafo() { return grafoPalabras; }
 };
 
 #endif // SCRABBLE_H
-
 
 

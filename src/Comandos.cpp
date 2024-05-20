@@ -6,15 +6,23 @@
 
 using namespace std;
 
-Comandos::Comandos(){};
+Comandos::Comandos() {
+    scrabble = new Scrabble();
+}
+
+Comandos::~Comandos() {
+    delete scrabble;
+}
+
 
 void Comandos::ejecutarComandos(){
 	
 	Scrabble scrabble;
     Diccionario diccionario;
     string comando, archivoDiccionario;
-    string prefijo,sufijo;
+    string prefijo, sufijo;
     string palabra;
+    std::string letras;
     
     cout << "Bienvenido al juego Scrabble!" << endl;
     cout << "Ingrese un comando ('ayuda' para ver la lista de comandos):" << endl;
@@ -25,18 +33,21 @@ void Comandos::ejecutarComandos(){
 
 
         if (comando == "ayuda") {
-            cout << "Lista de comandos:" << endl;
-            cout << "  - inicializar <archivoDiccionario>: Inicializa el diccionario con el archivo especificado." << endl;
-            cout << "  - iniciar_inverso <archivoDiccionario>: Inicializa el diccionario inverso con el archivo especificado." << endl;
-            cout << "  - puntaje <palabra>: Obtiene el puntaje de la palabra dada." << endl;
-            cout << "  - cls: Limpiar consola"<<endl;
-			cout << "  - salir: Termina la ejecucion del programa." << endl;
+            std::cout << "Lista de comandos:" << std::endl;
+            std::cout << "  - inicializar <archivoDiccionario>: Inicializa el diccionario con el archivo especificado." << std::endl;
+            std::cout << "  - iniciar_inverso <archivoDiccionario>: Inicializa el diccionario inverso con el archivo especificado." << std::endl;
+            std::cout << "  - puntaje <palabra>: Obtiene el puntaje de la palabra dada." << std::endl;
+            std::cout << "  - cls: Limpiar consola" << std::endl;
+            std::cout << "  - salir: Termina la ejecucion del programa." << std::endl;
             // Funciones componente 2
-            cout << "  - iniciar_arbol <archivoDiccionario>: Inicializa el arbol de palabras con el archivo especificado." << endl;
-            cout << "  - iniciar_arbol_inverso <archivoDiccionario>: Inicializa el arbol de palabras inverso con el archivo especificado." << endl;
-            cout << "  - palabras_por_prefijo <prefijo>: Muestra las palabras que comienzan con el prefijo dado." << endl;
-            cout << "  - palabras_por_sufijo <sufijo>: Muestra las palabras que terminan con el sufijo dado." << endl;
-            
+            std::cout << "  - iniciar_arbol <archivoDiccionario>: Inicializa el arbol de palabras con el archivo especificado." << std::endl;
+            std::cout << "  - iniciar_arbol_inverso <archivoDiccionario>: Inicializa el arbol de palabras inverso con el archivo especificado." << std::endl;
+            std::cout << "  - palabras_por_prefijo <prefijo>: Muestra las palabras que comienzan con el prefijo dado." << std::endl;
+            std::cout << "  - palabras_por_sufijo <sufijo>: Muestra las palabras que terminan con el sufijo dado." << std::endl;
+            // Funciones componente 3
+            std::cout << "  - grafo_de_palabras: Construye el grafo de palabras." << std::endl;
+            std::cout << "  - posibles_palabras_letras <letras>: Muestra las posibles palabras a construir con las letras dadas." << std::endl;
+
         } else if (comando == "inicializar") {
             cin >> archivoDiccionario;
             scrabble.inicializarDiccionario(archivoDiccionario);
@@ -62,15 +73,24 @@ void Comandos::ejecutarComandos(){
             int result2 = scrabble.inicializarArbolInverso(archivoDiccionario);
             bool tipoArbol=false;
             manejarResultado(result2,tipoArbol);
-        } else if (comando == "palabras_por_prefijo"){
-            cin>>prefijo;
+        } else if (comando == "palabras_por_prefijo") {
+            cin >> prefijo;
+            std::transform(prefijo.begin(), prefijo.end(), prefijo.begin(), ::tolower);
             scrabble.buscarPalabrasPorPrefijo(prefijo);
-        } else if (comando == "palabras_por_sufijo"){
-            cin>>sufijo; 
+        } else if (comando == "palabras_por_sufijo") {
+            cin >> sufijo; 
+            std::transform(sufijo.begin(), sufijo.end(), sufijo.begin(), ::tolower);
             scrabble.buscarPalabrasPorSufijo(sufijo);
-        }
-        else {
-            cout << "Comando no reconocido. Ingrese 'ayuda' para ver la lista de comandos disponibles." << endl;
+        } else if (comando == "grafo_de_palabras") {
+            std::vector<std::string> palabras = scrabble.getDiccionario().obtenerPalabras();
+            scrabble.getGrafo().construirGrafo(palabras);
+            std::cout << "(Resultado exitoso) Grafo construido correctamente." << std::endl;
+        } else if (comando == "posibles_palabras_letras") {
+            std::cin >> letras;
+             std::transform(letras.begin(), letras.end(), letras.begin(), ::tolower);
+            scrabble.posiblesPalabrasLetras(letras);
+        } else {
+            std::cout << "Comando no reconocido. Ingrese 'ayuda' para ver la lista de comandos disponibles." << std::endl;
         }
     }
 }
@@ -112,7 +132,7 @@ void Comandos::manejarResultado(int codigo, bool tipo) {
 
 void Comandos::mostrarResultadosPrefijo(const std::string& prefijo, const std::vector<std::string>& palabras) {
         if (palabras.empty()) {
-            std::cout << "(Prefijo invalido) Prefijo \"" << prefijo << "\"." <<"No pudo encontrarse en el diccionario."<< std::endl;
+            std::cout << "(Prefijo invalido) Prefijo \"" << prefijo << "\" " <<"no pudo encontrarse en el diccionario."<< std::endl;
         } else {
             std::cout << "(Resultado exitoso) Las palabras que inician con el prefijo \"" << prefijo << "\":"<<std::endl;
             for (const auto& palabra : palabras) {
@@ -125,7 +145,7 @@ void Comandos::mostrarResultadosPrefijo(const std::string& prefijo, const std::v
 
 void Comandos::mostrarResultadosSufijo(const std::string& sufijo, const std::vector<std::string>& palabras) {
         if (palabras.empty()) {
-            std::cout << "(Sufijo invalido) Sufijo \"" << sufijo << "\"." << "No pudo encontrarse en el diccionario."<<std::endl;
+            std::cout << "(Sufijo invalido) Sufijo \"" << sufijo << "\" " << "no pudo encontrarse en el diccionario."<<std::endl;
         } else {
             std::cout << "(Resultado exitoso) Palabras que terminan con el sufijo \"" << sufijo << "\":" << std::endl;
             for (auto palabra : palabras) {

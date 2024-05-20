@@ -104,3 +104,11 @@ void Diccionario::buscarPuntaje(const std::string& palabraOri) {
 
     cout << "(Palabra no encontrada) La palabra no existe en el diccionario." << endl;
 }
+
+std::vector<std::string> Diccionario::obtenerPalabras() const {
+    std::vector<std::string> palabras;
+    for (const auto& palabra : diccionario) {
+        palabras.push_back(palabra.getContenido());
+    }
+    return palabras;
+}

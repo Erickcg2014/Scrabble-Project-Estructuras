@@ -23,6 +23,7 @@ public:
     bool iniciarDiccionarioInverso(const std::string& archivoDiccionario);
     bool contienePalabra(const std::string& palabra) const;
     void buscarPuntaje(const std::string& palabra);
+    std::vector<std::string> obtenerPalabras() const;
 };
 
 #endif // DICCIONARIO_H
